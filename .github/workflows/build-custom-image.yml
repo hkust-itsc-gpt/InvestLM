@@ -1,0 +1,44 @@
+name: Build Custom Image
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Input image tag
+        required: true
+        default: latest
+      mongo:
+        description: Input MongoDB image tag
+        required: true
+        default: latest
+      meilisearch:
+        description: Input meilisearch image tag
+        required: true
+        default: v1.7.3
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      # checkout the repo
+      - name: 'Checkout GitHub Action'
+        uses: actions/checkout@v4
+
+      - name: 'Build container images'
+        run: |
+          docker pull mongo:${{ inputs.mongo }}
+          docker tag mongo:${{ inputs.mongo }} ${{ secrets.ACR_REGISTRY }}/${{ secrets.ACR_REPO }}:mongo_${{ inputs.mongo }}
+          docker pull getmeili/meilisearch:${{ inputs.meilisearch }}
+          docker tag getmeili/meilisearch:${{ inputs.meilisearch }} ${{ secrets.ACR_REGISTRY }}/${{ secrets.ACR_REPO }}:meilisearch_${{ inputs.meilisearch }}
+          docker build . --file customize/Dockerfile --tag ${{ secrets.ACR_REGISTRY }}/${{ secrets.ACR_REPO }}:librechat_${{ inputs.tag }}
+
+      - name: 'Push container image to ACR'
+        uses: azure/docker-login@v2
+        with:
+          login-server: ${{ secrets.ACR_REGISTRY }}
+          username: ${{ secrets.ACR_TOKENNAME }}
+          password: ${{ secrets.ACR_TOKEN }}
+      - run: |
+          docker push ${{ secrets.ACR_REGISTRY }}/${{ secrets.ACR_REPO }}:librechat_${{ inputs.tag }}
+          docker push ${{ secrets.ACR_REGISTRY }}/${{ secrets.ACR_REPO }}:mongo_${{ inputs.mongo }}
+          docker push ${{ secrets.ACR_REGISTRY }}/${{ secrets.ACR_REPO }}:meilisearch_${{ inputs.meilisearch }}
