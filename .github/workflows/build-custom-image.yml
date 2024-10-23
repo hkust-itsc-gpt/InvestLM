@@ -32,13 +32,15 @@ jobs:
           docker tag getmeili/meilisearch:${{ inputs.meilisearch }} ${{ secrets.ACR_REGISTRY }}/${{ secrets.ACR_REPO }}:meilisearch_${{ inputs.meilisearch }}
           docker build . --file customize/Dockerfile --tag ${{ secrets.ACR_REGISTRY }}/${{ secrets.ACR_REPO }}:librechat_${{ inputs.tag }}
 
-      - name: 'Push container image to ACR'
+      - name: 'Login ACR'
         uses: azure/docker-login@v2
         with:
           login-server: ${{ secrets.ACR_REGISTRY }}
           username: ${{ secrets.ACR_TOKENNAME }}
           password: ${{ secrets.ACR_TOKEN }}
-      - run: |
+      
+      - name: 'Push container image to ACR'
+        run: |
           docker push ${{ secrets.ACR_REGISTRY }}/${{ secrets.ACR_REPO }}:librechat_${{ inputs.tag }}
           docker push ${{ secrets.ACR_REGISTRY }}/${{ secrets.ACR_REPO }}:mongo_${{ inputs.mongo }}
           docker push ${{ secrets.ACR_REGISTRY }}/${{ secrets.ACR_REPO }}:meilisearch_${{ inputs.meilisearch }}
