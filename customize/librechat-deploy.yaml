@@ -41,8 +41,6 @@ spec:
         - mountPath: /meili_data
           name: librechat-vol
           subPath: meili_data
-      nodeSelector:
-        agentpool: npuser02
       restartPolicy: Always
       volumes:
       - name: librechat-vol
@@ -115,8 +113,6 @@ spec:
       - name: init-mongodb
         image: busybox:1.28
         command: ['sh', '-c', "until nc -w 1 librechat-backend-svc.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local 27017; do echo waiting for mongodb; sleep 2; done"]
-      nodeSelector:
-        agentpool: npuser02
       restartPolicy: Always
       volumes:
       - name: librechat-vol
