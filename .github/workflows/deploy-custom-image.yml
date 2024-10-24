@@ -28,25 +28,25 @@ jobs:
       - name: 'Checkout GitHub Action'
         uses: actions/checkout@v4
 
-      - name: Azure login OIDC
-        uses: azure/login@v2
-        with:
-          client-id: ${{ secrets.AZURE_CLIENT_ID }}
-          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+#      - name: Azure login OIDC
+#        uses: azure/login@v2
+#        with:
+#          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+#          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+#          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
   
-      - name: Kubelogin with AKS
-        uses: azure/use-kubelogin@v1
-        with:
-          kubelogin-version: 'v0.1.4'
+#      - name: Kubelogin with AKS
+#        uses: azure/use-kubelogin@v1
+#        with:
+#          kubelogin-version: 'v0.1.4'
   
-      - name: Set AKS context
-        uses: azure/aks-set-context@v4
-        with:
-          admin: false
-          cluster-name: ${{ secrets.AKS_CLUSTER }}
-          resource-group: ${{ secrets.AKS_RESOURCE_GROUP }}
-          use-kubelogin: true
+#      - name: Set AKS context
+#        uses: azure/aks-set-context@v4
+#        with:
+#          admin: false
+#          cluster-name: ${{ secrets.AKS_CLUSTER }}
+#          resource-group: ${{ secrets.AKS_RESOURCE_GROUP }}
+#          use-kubelogin: true
   
       - name: Generate configmap checksum
         run: |
