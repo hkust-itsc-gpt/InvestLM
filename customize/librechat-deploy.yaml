@@ -28,10 +28,10 @@ spec:
           subPath: mongodb
         resources:
           limits:
-            cpu: 100m
+            cpu: 200m
             memory: 400Mi
           requests:
-            cpu: 50m
+            cpu: 100m
             memory: 200Mi
       - image: #{MEILI_IMAGE}#
         imagePullPolicy: Always
@@ -53,7 +53,7 @@ spec:
             cpu: 100m
             memory: 100Mi
           requests:
-            cpu: 30m
+            cpu: 50m
             memory: 50Mi
       restartPolicy: Always
       volumes:
@@ -126,9 +126,9 @@ spec:
         resources:
           limits:
             cpu: 200m
-            memory: 300Mi
+            memory: 200Mi
           requests:
-            cpu: 50m
+            cpu: 100m
             memory: 100Mi
       initContainers:
       - name: init-mongodb
@@ -137,10 +137,10 @@ spec:
         resources:
           limits:
             cpu: 20m
-            memory: 50Mi
+            memory: 20Mi
           requests:
             cpu: 20m
-            memory: 50Mi
+            memory: 20Mi
       restartPolicy: Always
       volumes:
       - name: librechat-vol
