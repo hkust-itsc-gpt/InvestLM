@@ -84,6 +84,6 @@ jobs:
 
       - name: Deploy
         run: |
-          kubectl create configmap librechat-config --from-file ./customize/librechat.yaml -o yaml --dry-run=client | kubectl apply -n ${{ secrets.NAMESPACE }} -f -
+          kubectl create configmap librechat-config --from-file ./customize/librechat-config.yaml -o yaml --dry-run=client | kubectl apply -n ${{ secrets.NAMESPACE }} -f -
           kubectl create configmap librechat-env --from-env-file=./customize/env-file -o yaml --dry-run=client | kubectl apply -n ${{ secrets.NAMESPACE }} -f -
           kubectl apply -f ./customize/librechat-deploy.yaml -n ${{ secrets.NAMESPACE }}
