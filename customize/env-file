@@ -466,8 +466,8 @@ ALLOW_SHARED_LINKS_PUBLIC=true
 #                        UI                         #
 #===================================================#
 
-APP_TITLE=#{SMTP_FORM_NAME}#
-CUSTOM_FOOTER=#{CUSTOM_FOOTER}#
+APP_TITLE=#{SMTP_FROM_NAME}#
+CUSTOM_FOOTER='#{CUSTOM_FOOTER}#'
 HELP_AND_FAQ_URL=#{HELP}#
 
 # SHOW_BIRTHDAY_ICON=true

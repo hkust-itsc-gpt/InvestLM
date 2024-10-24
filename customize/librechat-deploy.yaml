@@ -29,10 +29,10 @@ spec:
         resources:
           limits:
             cpu: 100m
-            memory: 100Mi
+            memory: 400Mi
           requests:
-            cpu: 30m
-            memory: 50Mi
+            cpu: 50m
+            memory: 200Mi
       - image: #{MEILI_IMAGE}#
         imagePullPolicy: Always
         name: meilisearch
@@ -51,10 +51,10 @@ spec:
         resources:
           limits:
             cpu: 100m
-            memory: 400Mi
+            memory: 100Mi
           requests:
-            cpu: 50m
-            memory: 200Mi
+            cpu: 30m
+            memory: 50Mi
       restartPolicy: Always
       volumes:
       - name: librechat-vol
@@ -116,7 +116,7 @@ spec:
         volumeMounts:
         - mountPath: /app/librechat.yaml
           name: librechat-config
-          subPath: librechat.yaml
+          subPath: librechat-config.yaml
         - mountPath: /app/client/public/images
           name: librechat-vol
           subPath: librechat/images
