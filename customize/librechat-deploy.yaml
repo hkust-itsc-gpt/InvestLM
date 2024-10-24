@@ -1,0 +1,187 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: librechat-pvc
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 20Gi
+  storageClassName: azurefile-csi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: librechat-backend
+  name: librechat-backend-deployment
+  namespace: librechat
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: librechat-backend
+  template:
+    metadata:
+      labels:
+        app: librechat-backend
+    spec:
+      containers:
+      - image: #{MONGO_IMAGE}#
+        imagePullPolicy: Always
+        name: mongodb
+        command: [ "mongod", "--noauth", "--bind_ip", "0.0.0.0" ]
+        ports:
+        - containerPort: 27017
+          protocol: TCP
+        volumeMounts:
+        - mountPath: /data/db
+          name: librechat-vol
+          subPath: mongodb
+      - image: #{MEILI_IMAGE}#
+        imagePullPolicy: Always
+        name: meilisearch
+        env:
+        - name: MEILI_HOST
+          value: "http://librechat-backend-svc:7700"
+        - name: MEILI_NO_ANALYTICS
+          value: "true"
+        ports:
+        - containerPort: 7700
+          protocol: TCP
+        volumeMounts:
+        - mountPath: /meili_data
+          name: librechat-vol
+          subPath: meili_data
+      nodeSelector:
+        agentpool: npuser02
+      restartPolicy: Always
+      volumes:
+      - name: librechat-vol
+        persistentVolumeClaim:
+          claimName: librechat-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: librechat-backend-svc
+  namespace: librechat
+spec:
+  ports:
+  - name: mongo
+    port: 27017
+    protocol: TCP
+    targetPort: 27017
+  - name: meilisearch
+    port: 7700
+    protocol: TCP
+    targetPort: 7700
+  selector:
+    app: librechat-backend
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: librechat
+  name: librechat-deployment
+  namespace: librechat
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: librechat
+  template:
+    metadata:
+      labels:
+        app: librechat
+      annotations:
+        checksum/config: #{CHECKSUM}#
+    spec:
+      containers:
+      - image: #{LIBRE_IMAGE}#
+        imagePullPolicy: Always
+        name: librechat
+        env:
+        - name: HOST
+          value: "0.0.0.0"
+        - name: MONGO_URI
+          value: "mongodb://librechat-backend-svc:27017/LibreChat"
+        - name: MEILI_HOST
+          value: "http://librechat-backend-svc:7700"
+        envFrom:
+        - configMapRef:
+            name: librechat-env
+        ports:
+        - containerPort: 3080
+          protocol: TCP
+        volumeMounts:
+        - mountPath: /app/librechat.yaml
+          name: librechat-config
+          subPath: librechat.yaml
+        - mountPath: /app/client/public/images
+          name: librechat-vol
+          subPath: librechat/images
+        - mountPath: /app/api/logs
+          name: librechat-vol
+          subPath: librechat/logs
+      initContainers:
+      - name: init-mongodb
+        image: busybox:1.28
+        command: ['sh', '-c', "until nc -w 1 librechat-backend-svc.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local 27017; do echo waiting for mongodb; sleep 2; done"]
+      nodeSelector:
+        agentpool: npuser02
+      restartPolicy: Always
+      volumes:
+      - name: librechat-vol
+        persistentVolumeClaim:
+          claimName: librechat-pvc
+      - name: librechat-config
+        configMap:
+          name: librechat-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: librechat-svc
+  namespace: librechat
+spec:
+  ports:
+  - name: librechat
+    port: 3080
+    protocol: TCP
+    targetPort: 3080
+  selector:
+    app: librechat
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    appgw.ingress.kubernetes.io/backend-protocol: http
+    appgw.ingress.kubernetes.io/cookie-based-affinity: "true"
+    appgw.ingress.kubernetes.io/health-probe-path: /
+    appgw.ingress.kubernetes.io/request-timeout: "300"
+    appgw.ingress.kubernetes.io/ssl-redirect: "true"
+    kubernetes.io/ingress.allow-http: "true"
+    kubernetes.io/ingress.class: azure/application-gateway
+    appgw.ingress.kubernetes.io/appgw-ssl-certificate: #{SSL_CERT}#
+  labels:
+  name: librechat-ingress
+  namespace: librechat
+spec:
+  rules:
+  - host: #{URL}#
+    http:
+      paths:
+      - backend:
+          service:
+            name: librechat-svc
+            port:
+              number: 3080
+        path: /
+        pathType: Prefix
+  tls:
+  - hosts:
+    - #{URL}#

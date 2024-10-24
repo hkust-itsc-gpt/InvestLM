@@ -1,0 +1,86 @@
+name: Deploy Custom Image
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Input image tag
+        required: true
+        default: latest
+      mongo:
+        description: Input MongoDB image tag
+        required: true
+        default: latest
+      meilisearch:
+        description: Input meilisearch image tag
+        required: true
+        default: v1.7.3
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      # checkout the repo
+      - name: 'Checkout GitHub Action'
+        uses: actions/checkout@v4
+
+      - name: Azure login OIDC
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+  
+      - name: Kubelogin with AKS
+        uses: azure/use-kubelogin@v1
+        with:
+          kubelogin-version: 'v0.1.4'
+  
+      - name: Set AKS context
+        uses: azure/aks-set-context@v4
+        with:
+          admin: false
+          cluster-name: ${{ secrets.AKS_CLUSTER }}
+          resource-group: ${{ secrets.AKS_RESOURCE_GROUP }}
+          use-kubelogin: true
+  
+      - name: Generate configmap checksum
+        run: |
+          echo CHECKSUM="$(cat ./customize/env-file ./customize/librechat-config.yaml | shasum | awk '{ print $1 }')" >> "$GITHUB_ENV"
+  
+      - name: update yaml file with env variables
+        uses: cschleiden/replace-tokens@v1
+        with:
+          tokenPrefix: '#{'
+          tokenSuffix: '}#'
+          files: '["./customize/env-file","./customize/librechat-config.yaml","./customize/librechat-deploy.yaml"]'
+        env:
+          # for env-file
+          URL: ${{ secrets.URL}}
+          SMTP: ${{ secrets.SMTP}}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD}}
+          SMTP_FROM_NAME: ${{ secrets.SMTP_FROM_NAME }}
+          SMTP_FROM: ${{ secrets.SMTP_FROM }}
+          CUSTOM_FOOTER: ${{ secrets.CUSTOM_FOOTER }}
+          HELP: ${{ secrets.HELP }}
+          # for librechat-config.yaml
+          PRIVACYURL: ${{ secrets.PRIVACYURL }}
+          TOSURL: ${{ secrets.TOSURL }}
+          ENDPOINT: ${{ secrets.ENDPOINT }}
+          ENDPOINT_KEY: ${{ secrets.ENDPOINT_KEY }}
+          ENDPOINT_URL: ${{ secrets.ENDPOINT_URL }}
+
+          CHECKSUM: ${{ env.CHECKSUM }}
+          MONGO_IMAGE: ${{ secrets.ACR_REGISTRY }}/${{ secrets.ACR_REPO }}:mongo_${{ inputs.mongo }}
+          MEILI_IMAGE: ${{ secrets.ACR_REGISTRY }}/${{ secrets.ACR_REPO }}:meilisearch_${{ inputs.meilisearch }}
+          LIBRE_IMAGE: ${{ secrets.ACR_REGISTRY }}/${{ secrets.ACR_REPO }}:librechat_${{ inputs.tag }}
+          SSL_CERT: ${{ secrets.SSL_CERT }}
+
+      - name: Deploy
+        run: |
+          cat ./customize/env-file ./customize/librechat-config.yaml ./customize/librechat-deploy.yaml
