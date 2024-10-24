@@ -28,25 +28,25 @@ jobs:
       - name: 'Checkout GitHub Action'
         uses: actions/checkout@v4
 
-#      - name: Azure login OIDC
-#        uses: azure/login@v2
-#        with:
-#          client-id: ${{ secrets.AZURE_CLIENT_ID }}
-#          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-#          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+      - name: Azure login OIDC
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
   
-#      - name: Kubelogin with AKS
-#        uses: azure/use-kubelogin@v1
-#        with:
-#          kubelogin-version: 'v0.1.4'
+      - name: Kubelogin with AKS
+        uses: azure/use-kubelogin@v1
+        with:
+          kubelogin-version: 'v0.1.4'
   
-#      - name: Set AKS context
-#        uses: azure/aks-set-context@v4
-#        with:
-#          admin: false
-#          cluster-name: ${{ secrets.AKS_CLUSTER }}
-#          resource-group: ${{ secrets.AKS_RESOURCE_GROUP }}
-#          use-kubelogin: true
+      - name: Set AKS context
+        uses: azure/aks-set-context@v4
+        with:
+          admin: false
+          cluster-name: ${{ secrets.AKS_CLUSTER }}
+          resource-group: ${{ secrets.AKS_RESOURCE_GROUP }}
+          use-kubelogin: true
   
       - name: Generate configmap checksum
         run: |
@@ -74,13 +74,16 @@ jobs:
           ENDPOINT: ${{ secrets.ENDPOINT }}
           ENDPOINT_KEY: ${{ secrets.ENDPOINT_KEY }}
           ENDPOINT_URL: ${{ secrets.ENDPOINT_URL }}
-
+          # for librechat-deploy.yaml
           CHECKSUM: ${{ env.CHECKSUM }}
           MONGO_IMAGE: ${{ secrets.ACR_REGISTRY }}/${{ secrets.ACR_REPO }}:mongo_${{ inputs.mongo }}
           MEILI_IMAGE: ${{ secrets.ACR_REGISTRY }}/${{ secrets.ACR_REPO }}:meilisearch_${{ inputs.meilisearch }}
           LIBRE_IMAGE: ${{ secrets.ACR_REGISTRY }}/${{ secrets.ACR_REPO }}:librechat_${{ inputs.tag }}
+          PVC_NAME: ${{ secrets.PVC_NAME }}
           SSL_CERT: ${{ secrets.SSL_CERT }}
 
       - name: Deploy
         run: |
-          cat ./customize/env-file ./customize/librechat-config.yaml ./customize/librechat-deploy.yaml
+          kubectl create configmap librechat-config --from-file ./customize/librechat.yaml -o yaml --dry-run=client | kubectl apply -n ${{ secrets.NAMESPACE }} -f -
+          kubectl create configmap librechat-env --from-env-file=./customize/env-file -o yaml --dry-run=client | kubectl apply -n ${{ secrets.NAMESPACE }} -f -
+          kubectl apply -f ./customize/librechat-deploy.yaml -n ${{ secrets.NAMESPACE }}
