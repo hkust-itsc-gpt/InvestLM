@@ -54,6 +54,7 @@ DEBUG_CONSOLE=false
 #===================================================#
 
 # ENDPOINTS=openAI,assistants,azureOpenAI,bingAI,google,gptPlugins,anthropic
+ENDPOINTS=#{ENDPOINT}#
 
 PROXY=
 
