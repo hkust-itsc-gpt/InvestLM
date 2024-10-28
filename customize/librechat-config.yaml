@@ -54,6 +54,7 @@ interface:
       By using the Website, you acknowledge that you have read these Terms of Service and agree to be bound by them.
 
   multiConvo: false
+  SidePanel: false
     
 # Example Registration Object Structure (optional)
 #registration:
