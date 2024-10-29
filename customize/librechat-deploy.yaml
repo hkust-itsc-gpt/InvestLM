@@ -147,6 +147,7 @@ metadata:
     kubernetes.io/ingress.allow-http: "true"
     kubernetes.io/ingress.class: azure/application-gateway
     appgw.ingress.kubernetes.io/appgw-ssl-certificate: #{SSL_CERT}#
+    appgw.ingress.kubernetes.io/waf-policy-for-path: #{WAF_POLICY}#
   labels:
   name: librechat-ingress
 spec:

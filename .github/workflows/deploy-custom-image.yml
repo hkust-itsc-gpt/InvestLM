@@ -81,6 +81,7 @@ jobs:
           LIBRE_IMAGE: ${{ secrets.ACR_REGISTRY }}/aksapp/${{ secrets.ACR_REPO }}:librechat_${{ inputs.tag }}
           PVC_NAME: ${{ secrets.PVC_NAME }}
           SSL_CERT: ${{ secrets.SSL_CERT }}
+          WAF_POLICY: ${{ secrets.WAF_POLICY }}
 
       - name: Deploy
         run: |
