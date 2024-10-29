@@ -229,3 +229,4 @@ modelSpecs:
         endpoint: '#{ENDPOINT}#'
         model: '#{SMTP_FROM_NAME}#'
         temperature: 0.2
+        top_p: 0.8
