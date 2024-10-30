@@ -137,7 +137,7 @@ export default function Settings({ open, onOpenChange }: TDialogProps) {
                         icon: <MessageSquare className="icon-sm" />,
                         label: 'com_nav_setting_chat',
                       },
-                      {
+/*                      {
                         value: SettingsTabValues.BETA,
                         icon: <ExperimentIcon />,
                         label: 'com_nav_setting_beta',
@@ -151,7 +151,7 @@ export default function Settings({ open, onOpenChange }: TDialogProps) {
                         value: SettingsTabValues.SPEECH,
                         icon: <SpeechIcon className="icon-sm" />,
                         label: 'com_nav_setting_speech',
-                      },
+                      }, */
                       {
                         value: SettingsTabValues.DATA,
                         icon: <DataIcon />,

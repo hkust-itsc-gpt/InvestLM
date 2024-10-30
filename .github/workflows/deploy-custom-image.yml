@@ -48,10 +48,6 @@ jobs:
           resource-group: ${{ secrets.AKS_RESOURCE_GROUP }}
           use-kubelogin: true
   
-      - name: Generate configmap checksum
-        run: |
-          echo CHECKSUM="$(cat ./customize/env-file ./customize/librechat-config.yaml | shasum | awk '{ print $1 }')" >> "$GITHUB_ENV"
-  
       - name: update yaml file with env variables
         uses: cschleiden/replace-tokens@v1
         with:
@@ -82,6 +78,10 @@ jobs:
           PVC_NAME: ${{ secrets.PVC_NAME }}
           SSL_CERT: ${{ secrets.SSL_CERT }}
           WAF_POLICY: ${{ secrets.WAF_POLICY }}
+  
+      - name: Generate configmap checksum
+        run: |
+          echo CHECKSUM="$(cat ./customize/env-file ./customize/librechat-config.yaml | shasum | awk '{ print $1 }')" >> "$GITHUB_ENV"
 
       - name: Deploy
         run: |
