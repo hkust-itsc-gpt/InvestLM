@@ -472,7 +472,7 @@ ALLOW_SHARED_LINKS_PUBLIC=true
 #===================================================#
 
 APP_TITLE=#{SMTP_FROM_NAME}#
-CUSTOM_FOOTER="#{CUSTOM_FOOTER}#"
+CUSTOM_FOOTER=#{CUSTOM_FOOTER}#
 HELP_AND_FAQ_URL=#{HELP}#
 
 # SHOW_BIRTHDAY_ICON=true
