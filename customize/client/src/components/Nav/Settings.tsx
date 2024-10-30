@@ -19,9 +19,9 @@ export default function Settings({ open, onOpenChange }: TDialogProps) {
     const tabs = [
       SettingsTabValues.GENERAL,
       SettingsTabValues.CHAT,
-/*      SettingsTabValues.BETA,
-      SettingsTabValues.COMMANDS,
-      SettingsTabValues.SPEECH, */
+//      SettingsTabValues.BETA,
+//      SettingsTabValues.COMMANDS,
+//      SettingsTabValues.SPEECH,
       SettingsTabValues.DATA,
       SettingsTabValues.ACCOUNT,
     ];
