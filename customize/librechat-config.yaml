@@ -54,7 +54,7 @@ interface:
       By using the Website, you acknowledge that you have read these Terms of Service and agree to be bound by them.
 
   multiConvo: false
-  sidePanel: false
+#  sidePanel: false
   bookmarks: false
     
 # Example Registration Object Structure (optional)
@@ -218,16 +218,16 @@ endpoints:
 # See the Custom Configuration Guide for more information on Assistants Config:
 # https://www.librechat.ai/docs/configuration/librechat_yaml/object_structure/assistants_endpoint
 
-modelSpecs:
-  prioritize: true
-  list:
-    - name: '#{SMTP_FROM_NAME}#'
-      label: '#{SMTP_FROM_NAME}#'
-      description: '#{SMTP_FROM_NAME}#'
+#modelSpecs:
+#  prioritize: true
+#  list:
+#    - name: '#{SMTP_FROM_NAME}#'
+#      label: '#{SMTP_FROM_NAME}#'
+#      description: '#{SMTP_FROM_NAME}#'
 #      iconURL: "https://example.com/icon.png"
-      preset:
-        default: true
-        endpoint: '#{ENDPOINT}#'
-        model: '#{SMTP_FROM_NAME}#'
-        temperature: 0.2
-        top_p: 0.8
+#      preset:
+#        default: true
+#        endpoint: '#{ENDPOINT}#'
+#        model: '#{SMTP_FROM_NAME}#'
+#        temperature: 0.2
+#        top_p: 0.8

@@ -89,6 +89,7 @@ jobs:
           PVC_NAME: ${{ secrets.PVC_NAME }}
           SSL_CERT: ${{ secrets.SSL_CERT }}
           WAF_POLICY: ${{ secrets.WAF_POLICY }}
+          URL: ${{ secrets.URL}}
 
       - name: Deploy
         run: |
