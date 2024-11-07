@@ -33,7 +33,6 @@ import StopButton from './StopButton';
 import SendButton from './SendButton';
 import Mention from './Mention';
 import store from '~/store';
-import { textareaContentState } from '~/store/prompts';
 
 const ChatForm = ({ index = 0 }) => {
   const submitButtonRef = useRef<HTMLButtonElement>(null);
@@ -140,19 +139,6 @@ const ChatForm = ({ index = 0 }) => {
     ? `pr-${uploadActive ? '12' : '4'} pl-12`
     : `pl-${uploadActive ? '12' : '4'} pr-12`;
 
-  const [textareaContent, setTextareaContent] = useRecoilState(textareaContentState);
-  // const textAreaRef = useRef(null);
-
-  useEffect(() => {
-    if (textAreaRef.current) {
-      textAreaRef.current.value = textareaContent;
-    }
-  }, [textareaContent]);
-
-  const handleTextareaChange = (e) => {
-    setTextareaContent(e.target.value);
-  };
-
   return (
     <form
       onSubmit={methods.handleSubmit((data) => submitMessage(data))}
@@ -183,25 +169,24 @@ const ChatForm = ({ index = 0 }) => {
             <FileFormWrapper disableInputs={disableInputs}>
               {endpoint && (
                 <TextareaAutosize
-                {...registerProps}
-                ref={(e) => {
-                  ref(e);
-                  textAreaRef.current = e;
-                }}
-                disabled={disableInputs}
-                onPaste={handlePaste}
-                onKeyDown={handleKeyDown}
-                onKeyUp={handleKeyUp}
-                onCompositionStart={handleCompositionStart}
-                onCompositionEnd={handleCompositionEnd}
-                onChange={handleTextareaChange}
-                id={mainTextareaId}
-                tabIndex={0}
-                data-testid="text-input"
-                style={{ height: 44, overflowY: 'auto' }}
-                rows={1}
-                className={cn(baseClasses, speechClass, removeFocusRings)}
-              />
+                  {...registerProps}
+                  ref={(e) => {
+                    ref(e);
+                    textAreaRef.current = e;
+                  }}
+                  disabled={disableInputs}
+                  onPaste={handlePaste}
+                  onKeyDown={handleKeyDown}
+                  onKeyUp={handleKeyUp}
+                  onCompositionStart={handleCompositionStart}
+                  onCompositionEnd={handleCompositionEnd}
+                  id={mainTextareaId}
+                  tabIndex={0}
+                  data-testid="text-input"
+                  style={{ height: 44, overflowY: 'auto' }}
+                  rows={1}
+                  className={cn(baseClasses, speechClass, removeFocusRings)}
+                />
               )}
             </FileFormWrapper>
             {SpeechToText && (

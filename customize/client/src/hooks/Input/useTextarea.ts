@@ -14,6 +14,7 @@ import useLocalize from '~/hooks/useLocalize';
 import { globalAudioId } from '~/common';
 import store from '~/store';
 
+
 type KeyEvent = KeyboardEvent<HTMLTextAreaElement>;
 
 export default function useTextarea({
@@ -55,7 +56,9 @@ export default function useTextarea({
 
   useEffect(() => {
     if (activePrompt && textAreaRef.current) {
-      insertTextAtCursor(textAreaRef.current, activePrompt);
+      textAreaRef.current.value = activePrompt; // 直接替换内容
+      textAreaRef.current.setSelectionRange(activePrompt.length, activePrompt.length); // 将光标移动到末尾
+      textAreaRef.current.focus(); // 聚焦到 textarea
       forceResize(textAreaRef.current);
       setActivePrompt(undefined);
     }
