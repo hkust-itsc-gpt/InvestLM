@@ -56,7 +56,7 @@ jobs:
           files: '["./customize/env-file","./customize/librechat-config.yaml"]'
         env:
           # for env-file
-          URL: ${{ secrets.URL}}
+          FRONTEND_URL: ${{ secrets.FRONTEND_URL}}
           SMTP: ${{ secrets.SMTP}}
           SMTP_USER: ${{ secrets.SMTP_USER }}
           SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD}}
@@ -90,6 +90,8 @@ jobs:
           SSL_CERT: ${{ secrets.SSL_CERT }}
           WAF_POLICY: ${{ secrets.WAF_POLICY }}
           URL: ${{ secrets.URL}}
+          ENDPOINT_HOST: ${{ secrets.ENDPOINT_HOST }}
+          ENDPOINT_IP: ${{ secrets.ENDPOINT_IP }}
 
       - name: Deploy
         run: |

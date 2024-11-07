@@ -16,7 +16,7 @@ PORT=3080
 
 MONGO_URI=mongodb://librechat-backend-svc:27017/LibreChat
 
-DOMAIN_CLIENT=https://#{URL}#
+DOMAIN_CLIENT=https://#{FRONTEND_URL}#
 DOMAIN_SERVER=http://localhost:3080
 
 NO_INDEX=true
