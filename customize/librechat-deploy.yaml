@@ -156,7 +156,7 @@ metadata:
   name: librechat-ingress
 spec:
   rules:
-  - host: #{URL}#
+  - host: #{FRONTEND_URL}#
     http:
       paths:
       - backend:
@@ -168,4 +168,4 @@ spec:
         pathType: Prefix
   tls:
   - hosts:
-    - #{URL}#
+    - #{FRONTEND_URL}#

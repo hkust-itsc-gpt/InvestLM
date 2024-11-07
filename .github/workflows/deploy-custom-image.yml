@@ -89,7 +89,7 @@ jobs:
           PVC_NAME: ${{ secrets.PVC_NAME }}
           SSL_CERT: ${{ secrets.SSL_CERT }}
           WAF_POLICY: ${{ secrets.WAF_POLICY }}
-          URL: ${{ secrets.URL}}
+          FRONTEND_URL: ${{ secrets.FRONTEND_URL}}
           ENDPOINT_HOST: ${{ secrets.ENDPOINT_HOST }}
           ENDPOINT_IP: ${{ secrets.ENDPOINT_IP }}
 
