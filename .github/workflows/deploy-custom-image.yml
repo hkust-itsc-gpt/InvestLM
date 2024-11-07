@@ -6,7 +6,7 @@ on:
       tag:
         description: Input image tag
         required: true
-        default: latest
+        default: v0.7.5
       mongo:
         description: Input MongoDB image tag
         required: true
