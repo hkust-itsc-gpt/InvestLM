@@ -2,8 +2,8 @@ import { Content, Portal, Root } from '@radix-ui/react-popover';
 import type { FC } from 'react';
 import TitleButton from './UI/TitleButton';
 import { useRecoilState } from 'recoil';
-import { textareaContentState } from '~/store/prompts';
 import { useChatContext } from '~/Providers';
+import store from '~/store';
 
 const TaskMessages = [
   { main: "Report Summarization", sub: "e.g. Based on the Earnings call transcript, summarize it and give me your view about the company.", prompt: "Perform Report Summarization Task:" },
@@ -17,11 +17,16 @@ const TaskMessages = [
 ];
 
 const TasksMenu: FC = () => {
-  const [textareaContent, setTextareaContent] = useRecoilState(textareaContentState);
-  const { newConversation } = useChatContext();
-  const handleTaskClick = (prompt: string) => {
-    setTextareaContent(prompt);
-    newConversation();
+  const { newConversation, index } = useChatContext();
+  const [activePrompt, setActivePrompt] = useRecoilState(store.activePromptByIndex(index));
+
+  const handleTaskClick = async (prompt: string) => {
+    try {
+      await newConversation();
+      setActivePrompt(prompt);
+    } catch (error) {
+      console.error('Error handling task click:', error);
+    }
   };
 
   return (
@@ -51,7 +56,9 @@ const TasksMenu: FC = () => {
                   onClick={() => handleTaskClick(task.prompt)}
                 >
                   <div className="font-semibold text-sm">{task.main}</div>
-                  <div className="text-xs text-gray-500 dark:text-gray-400 line-clamp-2">{task.sub}</div>
+                  <div className="text-xs text-gray-500 dark:text-gray-400 line-clamp-2">
+                    {task.sub}
+                  </div>
                 </button>
               ))}
             </div>
