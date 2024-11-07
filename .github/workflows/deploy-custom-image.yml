@@ -73,7 +73,7 @@ jobs:
   
       - name: Generate configmap checksum
         run: |
-          echo CHECKSUM="$(cat ./customize/env-file ./customize/librechat-config.yaml | shasum | awk '{ print $1 }')" >> "$GITHUB_ENV"
+          echo CHECKSUM="$(find customize -type f | xargs cat | shasum | awk '{ print $1 }')" >> "$GITHUB_ENV"
 
       - name: update deployment file
         uses: cschleiden/replace-tokens@v1
