@@ -4,17 +4,21 @@ on:
   workflow_dispatch:
     inputs:
       tag:
-        description: Input image tag
+        description: LibreChat image tag
         required: true
         default: v0.7.5
       mongo:
-        description: Input MongoDB image tag
+        description: Mongo image tag
         required: true
         default: latest
       meilisearch:
-        description: Input meilisearch image tag
+        description: meilisearch image tag
         required: true
         default: v1.7.3
+      express:
+        description: Mongo express image tag
+        required: true
+        default: latest
 
 permissions:
   contents: read
@@ -86,6 +90,9 @@ jobs:
           MONGO_IMAGE: ${{ secrets.ACR_REGISTRY }}/aksapp/${{ secrets.ACR_REPO }}:mongo_${{ inputs.mongo }}
           MEILI_IMAGE: ${{ secrets.ACR_REGISTRY }}/aksapp/${{ secrets.ACR_REPO }}:meilisearch_${{ inputs.meilisearch }}
           LIBRE_IMAGE: ${{ secrets.ACR_REGISTRY }}/aksapp/${{ secrets.ACR_REPO }}:librechat_${{ inputs.tag }}
+          EXPRESS_IMAGE: ${{ secrets.ACR_REGISTRY }}/aksapp/${{ secrets.ACR_REPO }}:mongo-express_${{ inputs.express }}
+          EXPRESS_ADMIN: ${{ secrets.EXPRESS_ADMIN }}
+          EXPRESS_PASSWORD: ${{ secrets.EXPRESS_PASSWORD }}
           PVC_NAME: ${{ secrets.PVC_NAME }}
           SSL_CERT: ${{ secrets.SSL_CERT }}
           WAF_POLICY: ${{ secrets.WAF_POLICY }}

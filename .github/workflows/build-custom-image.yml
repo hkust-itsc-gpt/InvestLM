@@ -4,17 +4,21 @@ on:
   workflow_dispatch:
     inputs:
       tag:
-        description: Input image tag
+        description: LibreChat image tag
         required: true
         default: v0.7.5
       mongo:
-        description: Input MongoDB image tag
+        description: Mongo image tag
         required: true
         default: latest
       meilisearch:
-        description: Input meilisearch image tag
+        description: meilisearch image tag
         required: true
         default: v1.7.3
+      express:
+        description: Mongo express image tag
+        required: true
+        default: latest
 
 jobs:
   build-and-push:
@@ -30,6 +34,8 @@ jobs:
           docker tag mongo:${{ inputs.mongo }} ${{ secrets.ACR_REGISTRY }}/aksapp/${{ secrets.ACR_REPO }}:mongo_${{ inputs.mongo }}
           docker pull getmeili/meilisearch:${{ inputs.meilisearch }}
           docker tag getmeili/meilisearch:${{ inputs.meilisearch }} ${{ secrets.ACR_REGISTRY }}/aksapp/${{ secrets.ACR_REPO }}:meilisearch_${{ inputs.meilisearch }}
+          docker pull mongo-express:${{ inputs.express }}
+          docker tag mongo-express:${{ inputs.express }} ${{ secrets.ACR_REGISTRY }}/aksapp/${{ secrets.ACR_REPO }}:mongo-express_${{ inputs.express }}
           docker build . --file customize/Dockerfile --tag ${{ secrets.ACR_REGISTRY }}/aksapp/${{ secrets.ACR_REPO }}:librechat_${{ inputs.tag }}
 
       - name: 'Login ACR'
@@ -44,3 +50,4 @@ jobs:
           docker push ${{ secrets.ACR_REGISTRY }}/aksapp/${{ secrets.ACR_REPO }}:librechat_${{ inputs.tag }}
           docker push ${{ secrets.ACR_REGISTRY }}/aksapp/${{ secrets.ACR_REPO }}:mongo_${{ inputs.mongo }}
           docker push ${{ secrets.ACR_REGISTRY }}/aksapp/${{ secrets.ACR_REPO }}:meilisearch_${{ inputs.meilisearch }}
+          docker push ${{ secrets.ACR_REGISTRY }}/aksapp/${{ secrets.ACR_REPO }}:mongo-express_${{ inputs.express }}

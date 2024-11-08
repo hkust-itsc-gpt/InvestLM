@@ -68,6 +68,55 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
+    app: mongo-express
+  name: mongo-express-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongo-express
+  template:
+    metadata:
+      labels:
+        app: mongo-express
+    spec:
+      containers:
+      - image: #{EXPRESS_IMAGE}#
+        imagePullPolicy: Always
+        name: mongo-express
+        env:
+        - name: ME_CONFIG_MONGODB_SERVER
+          value: "librechat-backend-svc"
+        - name: ME_CONFIG_BASICAUTH_USERNAME
+          value: "#{EXPRESS_ADMIN}#"
+        - name: ME_CONFIG_BASICAUTH_PASSWORD
+          value: "#{EXPRESS_PASSWORD}#"
+        ports:
+        - containerPort: 8081
+          protocol: TCP
+      initContainers:
+      - name: init-mongodb
+        image: mcr.microsoft.com/azurelinux/busybox:1.36
+        command: ['sh', '-c', "until nc -w 1 librechat-backend-svc.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local 27017; do echo waiting for mongodb; sleep 2; done"]
+      restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongo-express-svc
+spec:
+  ports:
+  - name: mongo-express
+    port: 8081
+    protocol: TCP
+    targetPort: 8081
+  selector:
+    app: mongo-express
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
     app: librechat
   name: librechat-deployment
 spec:
@@ -159,6 +208,13 @@ spec:
   - host: #{FRONTEND_URL}#
     http:
       paths:
+      - backend:
+          service:
+            name: mongo-express-svc
+            port:
+              number: 8081
+        path: /mongo-express
+        pathType: Prefix
       - backend:
           service:
             name: librechat-svc
