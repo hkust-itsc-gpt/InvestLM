@@ -218,16 +218,17 @@ endpoints:
 # See the Custom Configuration Guide for more information on Assistants Config:
 # https://www.librechat.ai/docs/configuration/librechat_yaml/object_structure/assistants_endpoint
 
-#modelSpecs:
-#  prioritize: true
-#  list:
-#    - name: '#{SMTP_FROM_NAME}#'
-#      label: '#{SMTP_FROM_NAME}#'
-#      description: '#{SMTP_FROM_NAME}#'
-#      iconURL: "https://example.com/icon.png"
-#      preset:
-#        default: true
-#        endpoint: '#{ENDPOINT}#'
-#        model: '#{SMTP_FROM_NAME}#'
-#        temperature: 0.2
-#        top_p: 0.8
+modelSpecs:
+ prioritize: true
+ list:
+   - name: '#{SMTP_FROM_NAME}#'
+     label: '#{SMTP_FROM_NAME}#'
+     description: '#{SMTP_FROM_NAME}#'
+     iconURL: "https://example.com/icon.png"
+     preset:
+       default: true
+       endpoint: '#{ENDPOINT}#'
+       model: '#{SMTP_FROM_NAME}#'
+       maxContextTokens: 8192
+      #  temperature: 0.2
+      #  top_p: 0.8
