@@ -217,7 +217,7 @@ spec:
             name: mongo-express-svc
             port:
               number: 8081
-        path: /mongo-express
+        path: /mongo-express/
         pathType: Prefix
       - backend:
           service:
