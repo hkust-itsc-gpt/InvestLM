@@ -6,14 +6,14 @@ import { useChatContext } from '~/Providers';
 import store from '~/store';
 
 const TaskMessages = [
-  { main: "Report Summarization", sub: "e.g. Based on the Earnings call transcript, summarize it and give me your view about the company.", prompt: "Perform Report Summarization Task:" },
-  { main: "Key Facts Extraction", sub: "e.g. Identify the key trend in the technology sector for Q1 2022.", prompt: "Perform Key Facts Extraction Task:" },
-  { main: "Market Sentiment Analysis", sub: "e.g. Analyze the sentiment of the following statement...", prompt: "Perform Market Sentiment Analysis Task:" },
-  { main: "Investment Strategy", sub: "e.g. You are managing a portfolio for a client who is 45 years old, has moderate risk tolerance, and plans to retire in 20 years. Construct a portfolio using the following assets...", prompt: "Perform Investment Strategy Task:" },
-  { main: "Trend Forecast", sub: "e.g. What are the operating expense projections for the next three years based on historical cost trends?", prompt: "Perform Trend Forecast Task:" },
-  { main: "Wealth Management", sub: "e.g. What are three key aspects of wealth management you would discuss based on the following context...", prompt: "Perform Wealth Management Task:" },
-  { main: "Insurance Claim Processing", sub: "e.g. Given the following claim report, identify and list the key pieces of information that are crucial for processing the insurance claim...", prompt: "Perform Insurance Claim Processing Task:" },
-  { main: "ESG Risk Analysis", sub: "e.g. What is the ESG score given the text...", prompt: "Perform ESG Risk Analysis:" }
+  { main: "Text Summarization", sub: "e.g. 'Can you summarize this financial report?' (User provides text of the report.)", prompt: "Perform Text Summarization Task:" },
+  { main: "Sentiment Analysis", sub: "e.g. 'What is the sentiment in this paragraph of earnings call transcript?' (User provides the transcript.)", prompt: "Perform Sentiment Analysis Task:" },
+  { main: "Risk Analysis", sub: "e.g. Analyze the risks associated with this investment portfolio.' (User provides portfolio details.)", prompt: "Perform Risk Analysis Task:" },
+  { main: "Financial Document Processing (e.g., claim processing)", sub: "e.g. 'Given the following claim report, identify and list the key pieces of information crucial for processing the insurance claim.' (User provides claim report text.)", prompt: "Perform Financial Document Processing Task:" },
+  { main: "Entity Recognition", sub: "e.g. 'Identify key entities in this news article.' (User provides text from the annual report.)", prompt: "Perform Entity Recognition Task:" },
+  { main: "Business Event Detection", sub: "e.g. 'Detect any major events in this news article.' (User provides the article text.)", prompt: "Perform Business Event Detection Task:" },
+  { main: "ESG Analysis", sub: "e.g. 'Provide an ESG analysis based on this report.' (User provides the ESG report.)", prompt: "Perform ESG Risk Analysis:" },
+  { main: "Question Answering (based on provided text, including text-form tables)", sub: "e.g. : 'Compare the revenue growth of Company A and Company B based on this financial report.' (User provides the financial report text including tables.)", prompt: "Perform Question Answering Task:" }
 ];
 
 const TasksMenu: FC = () => {
