@@ -231,5 +231,6 @@ modelSpecs:
         endpoint: '#{ENDPOINT}#'
         model: '#{SMTP_FROM_NAME}#'
         maxContextTokens: 8192
-      #  temperature: 0.2
-      #  top_p: 0.8
+        temperature: 0.2
+        top_p: 0.8
+        frequency_penalty: 1.0
