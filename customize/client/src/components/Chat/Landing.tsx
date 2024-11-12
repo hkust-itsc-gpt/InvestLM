@@ -277,11 +277,8 @@ export default function Landing({ Header }) {
             />
           <div className="flex flex-col items-center gap-4">
             <h1 className="text-3xl font-bold">
-              InvestLM: Generative AI for Finance and Investment
+            InvestLM Generative AI Platform
             </h1>
-            <div className="text-xl font-light max-w-2xl">
-              Hong Kong's first open-source model for finance and investment related Generative AI tasks.
-            </div>
           </div>
         </div>
       </div>

@@ -232,7 +232,7 @@ modelSpecs:
         model: '#{SMTP_FROM_NAME}#'
         maxContextTokens: 8192
         temperature: 0.2
-        top_p: 1.0
         frequency_penalty: 1.0
         repetition_penalty: 1.2
         top_k: 20
+        top_p: 1.0

@@ -40,9 +40,9 @@ export default function Header() {
           {!navVisible && <HeaderNewChat />}
           <TasksMenu />  {/* 添加这一行 */}
 
-          {interfaceConfig.endpointsMenu === true && <EndpointsMenu />}
-          {modelSpecs.length > 0 && <ModelSpecsMenu modelSpecs={modelSpecs} />}
-          {<HeaderOptions interfaceConfig={interfaceConfig} />}
+          {/* {interfaceConfig.endpointsMenu === true && <EndpointsMenu />} */}
+          {/* {modelSpecs.length > 0 && <ModelSpecsMenu modelSpecs={modelSpecs} />} */}
+          {/* {<HeaderOptions interfaceConfig={interfaceConfig} />} */}
           {interfaceConfig.presets === true && <PresetsMenu />}
           {hasAccessToBookmarks === true && <BookmarkMenu />}
           {hasAccessToMultiConvo === true && <AddMultiConvo />}
