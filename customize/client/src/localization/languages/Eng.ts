@@ -454,7 +454,7 @@ export default {
   com_auth_click_here: 'Click here',
   com_auth_to_try_again: 'to try again.',
   com_auth_submit_registration: 'Submit registration',
-  com_auth_welcome_back: 'welcome to InvestLM Generative AI Platform',
+  com_auth_welcome_back: 'Welcome to InvestLM Generative AI Platform',
   com_auth_back_to_login: 'Back to Login',
   com_auth_email_verification_failed: 'Email verification failed',
   com_auth_email_verification_rate_limited: 'Too many requests. Please try again later',
