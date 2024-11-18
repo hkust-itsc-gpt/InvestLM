@@ -397,7 +397,7 @@ export default {
   com_auth_click_here: '点击这里',
   com_auth_to_try_again: '再试一次。',
   com_auth_submit_registration: '注册提交',
-  com_auth_welcome_back: '欢迎',
+  com_auth_welcome_back: '欢迎来到 InvestLM Generative AI 平台',
   com_auth_back_to_login: '返回登录',
   com_auth_email_verification_failed: '邮箱验证失败',
   com_auth_email_verification_rate_limited: '请求过多。请稍后再试',

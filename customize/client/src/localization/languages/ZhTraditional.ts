@@ -141,7 +141,7 @@ export default {
   com_auth_click_here: '點選這裡',
   com_auth_to_try_again: '重試。',
   com_auth_submit_registration: '送出',
-  com_auth_welcome_back: '歡迎回來',
+  com_auth_welcome_back: '歡迎來到 InvestLM Generative AI 平台',
   com_endpoint_open_menu: '開啟選單',
   com_endpoint_bing_enable_sydney: 'Sydney',
   com_endpoint_bing_to_enable_sydney: '啟用 Sydney',
