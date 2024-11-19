@@ -34,6 +34,8 @@ spec:
           value: "http://librechat-backend-svc:7700"
         - name: MEILI_NO_ANALYTICS
           value: "true"
+        - name: MEILI_MASTER_KEY
+          value: #{MEILI_MASTER_KEY}#
         ports:
         - containerPort: 7700
           protocol: TCP

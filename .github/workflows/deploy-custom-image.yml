@@ -68,6 +68,11 @@ jobs:
           SMTP_FROM: ${{ secrets.SMTP_FROM }}
           CUSTOM_FOOTER: ${{ secrets.CUSTOM_FOOTER }}
           HELP: ${{ secrets.HELP }}
+          CREDS_KEY: ${{ secrets.CREDS_KEY }}
+          CREDS_IV: ${{ secrets.CREDS_IV }}
+          MEILI_MASTER_KEY: ${{ secrets.MEILI_MASTER_KEY }}
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+          JWT_REFRESH_SECRET: ${{ secrets.JWT_REFRESH_SECRET }}
           # for librechat-config.yaml
           PRIVACYURL: ${{ secrets.PRIVACYURL }}
           TOSURL: ${{ secrets.TOSURL }}
@@ -89,6 +94,7 @@ jobs:
           CHECKSUM: ${{ env.CHECKSUM }}
           MONGO_IMAGE: ${{ secrets.ACR_REGISTRY }}/aksapp/${{ secrets.ACR_REPO }}:mongo_${{ inputs.mongo }}
           MEILI_IMAGE: ${{ secrets.ACR_REGISTRY }}/aksapp/${{ secrets.ACR_REPO }}:meilisearch_${{ inputs.meilisearch }}
+          MEILI_MASTER_KEY: ${{ secrets.MEILI_MASTER_KEY }}
           LIBRE_IMAGE: ${{ secrets.ACR_REGISTRY }}/aksapp/${{ secrets.ACR_REPO }}:librechat_${{ inputs.tag }}
           EXPRESS_IMAGE: ${{ secrets.ACR_REGISTRY }}/aksapp/${{ secrets.ACR_REPO }}:mongo-express_${{ inputs.express }}
           EXPRESS_ADMIN: ${{ secrets.EXPRESS_ADMIN }}
