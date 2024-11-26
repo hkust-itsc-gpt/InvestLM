@@ -55,7 +55,7 @@ interface:
 
   multiConvo: false
   parameters: true
-#  sidePanel: false
+  sidePanel: false
   bookmarks: false
     
 # Example Registration Object Structure (optional)
