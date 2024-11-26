@@ -265,7 +265,7 @@ export default function Landing({ Header }) {
           className="text-2xl mb-12 flex flex-col items-center space-y-6" 
           style={{ color: isDayMode ? 'white' : 'black' }}
         >
-          <img 
+          {/* <img 
               src={logo} 
               style={{ 
                 height: '150px', 
@@ -274,7 +274,7 @@ export default function Landing({ Header }) {
               }} 
               alt="HKUST Logo" 
               className="object-contain mb-2"
-            />
+            /> */}
           <div className="flex flex-col items-center gap-4">
             <h1 className="text-3xl font-bold">
             InvestLM Generative AI Platform
