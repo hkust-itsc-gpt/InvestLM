@@ -99,9 +99,12 @@ jobs:
           EXPRESS_IMAGE: ${{ secrets.ACR_REGISTRY }}/aksapp/${{ secrets.ACR_REPO }}:mongo-express_${{ inputs.express }}
           EXPRESS_ADMIN: ${{ secrets.EXPRESS_ADMIN }}
           EXPRESS_PASSWORD: ${{ secrets.EXPRESS_PASSWORD }}
+          ME_CONFIG_MONGODB_AUTH_USERNAME: ${{ secrets.ME_CONFIG_MONGODB_AUTH_USERNAME }}
+          ME_CONFIG_MONGODB_AUTH_PASSWORD: ${{ secrets.ME_CONFIG_MONGODB_AUTH_PASSWORD }}
           PVC_NAME: ${{ secrets.PVC_NAME }}
           SSL_CERT: ${{ secrets.SSL_CERT }}
           WAF_POLICY: ${{ secrets.WAF_POLICY }}
+          WAF_POLICY_MONGO_EXPRESS: ${{ secrets.WAF_POLICY_MONGO_EXPRESS }}
           FRONTEND_URL: ${{ secrets.FRONTEND_URL}}
           ENDPOINT_HOST: ${{ secrets.ENDPOINT_HOST }}
           ENDPOINT_IP: ${{ secrets.ENDPOINT_IP }}
