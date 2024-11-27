@@ -14,6 +14,7 @@ COPY --chown=node:node . .
 
 # Add customizations
 COPY --chown=node:node ./customize/client ./client
+COPY --chown=node:node ./customize/api ./api
 
 RUN \
     # Allow mounting of these files, which have no default
