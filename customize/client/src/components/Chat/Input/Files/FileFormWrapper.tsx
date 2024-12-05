@@ -50,9 +50,9 @@ function FileFormWrapper({
         )}
       />
       {children}
-      {/* endpointSupportsFiles && !isUploadDisabled && (
+      {endpointSupportsFiles && !isUploadDisabled && (
         <AttachFile isRTL={isRTL} disabled={disableInputs} handleFileChange={handleFileChange} />
-      ) */}
+      )}
     </>
   );
 }
