@@ -301,6 +301,10 @@ TTS_API_KEY=
 #==================================================#
 # More info: https://www.librechat.ai/docs/configuration/rag_api
 RAG_API_URL=#{RAG_API_URL}#
+RAG_OPENAI_API_KEY=#{RAG_OPENAI_API_KEY}#
+RAG_USE_FULL_CONTEXT=true
+EMBEDDINGS_PROVIDER=openai
+EMBEDDINGS_MODEL=text-embedding-3-small
 
 # RAG_OPENAI_BASEURL=
 # RAG_OPENAI_API_KEY=
