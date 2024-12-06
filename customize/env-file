@@ -300,7 +300,7 @@ TTS_API_KEY=
 #                        RAG                       #
 #==================================================#
 # More info: https://www.librechat.ai/docs/configuration/rag_api
-RAG_API_URL=http://imz339.ust.hk:8000/
+RAG_API_URL=http://imz339.ust.hk:8000
 RAG_USE_FULL_CONTEXT=true
 EMBEDDINGS_PROVIDER=openai
 EMBEDDINGS_MODEL=text-embedding-3-small
