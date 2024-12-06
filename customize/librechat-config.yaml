@@ -178,13 +178,6 @@ endpoints:
 #      modelDisplayLabel: 'OpenRouter'
 fileConfig:
   endpoints:
-    custom:
-      fileLimit: 5
-      fileSizeLimit: 10  # Maximum size for an individual file in MB
-      totalSizeLimit: 50  # Maximum total size for all files in a single request in MB
-      supportedMimeTypes:
-        - "image/.*"
-        - "application/pdf"
     openAI:
       disabled: true  # Disables file uploading to the OpenAI endpoint
     default:
