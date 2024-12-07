@@ -5,7 +5,7 @@ const { logger } = require('~/config');
 const footer = `Use the context as your learned knowledge to better answer the user.
 
 In your response, remember to follow these guidelines:
-- If you don't know the answer, simply say that you don't know.
+- If you don't know the answer, simply state that the context does not provide the relevant information, and then ask for the necessary details.
 - If you are unsure how to answer, ask for clarification.
 - Avoid mentioning that you obtained the information from the context.
 `;
@@ -99,10 +99,10 @@ function createContextHandlers(req, userMessageContent) {
               let contextItems = queryResult.data;
 
               const generateContext = (currentContext) =>
-                `---
+              `---
               File Name: ${file.filename}
               File Context: ${currentContext}
-                `;
+              `;
 
               if (useFullContext) {
                 return generateContext(`\n${contextItems}`);
