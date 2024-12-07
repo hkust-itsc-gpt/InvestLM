@@ -66,7 +66,7 @@ function createContextHandlers(req, userMessageContent) {
       }
 
       const oneFile = processedFiles.length === 1;
-      const header = `The user has attached ${oneFile ? 'a' : processedFiles.length} file${
+      const header = `Please complete the following instructions based on the following ${oneFile ? 'a' : processedFiles.length} file${
         !oneFile ? 's' : ''
       } to the conversation:`;
 
@@ -86,7 +86,7 @@ function createContextHandlers(req, userMessageContent) {
         oneFile
           ? ''
           : `
-        </files>`
+            `
       }`;
 
       const resolvedQueries = await Promise.all(queryPromises);
@@ -101,6 +101,7 @@ function createContextHandlers(req, userMessageContent) {
 
               const generateContext = (currentContext) =>
                 `
+              ---
               File Name: ${file.filename}
               File Context: ${currentContext}
                 `;
