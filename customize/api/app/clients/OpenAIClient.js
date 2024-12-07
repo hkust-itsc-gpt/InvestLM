@@ -578,14 +578,23 @@ class OpenAIClient extends BaseClient {
     };
 
     /** EXPERIMENTAL */
-    if (promptPrefix && this.isO1Model === true) {
-      const lastUserMessageIndex = payload.findLastIndex((message) => message.role === 'user');
-      if (lastUserMessageIndex !== -1) {
-        payload[
-          lastUserMessageIndex
-        ].content = `${promptPrefix}\n${payload[lastUserMessageIndex].content}`;
+    // if (promptPrefix && this.isO1Model === true) {
+    //   const lastUserMessageIndex = payload.findLastIndex((message) => message.role === 'user');
+    //   if (lastUserMessageIndex !== -1) {
+    //     payload[
+    //       lastUserMessageIndex
+    //     ].content = `${promptPrefix}\n${payload[lastUserMessageIndex].content}`;
+    //   }
+    // }
+
+    if (promptPrefix) {
+        const lastUserMessageIndex = payload.findLastIndex((message) => message.role === 'user');
+        if (lastUserMessageIndex !== -1) {
+          payload[
+            lastUserMessageIndex
+          ].content = `${promptPrefix}\n${payload[lastUserMessageIndex].content}`;
+        }
       }
-    }
 
     if (tokenCountMap) {
       tokenCountMap.instructions = instructions?.tokenCount;

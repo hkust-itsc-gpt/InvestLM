@@ -66,27 +66,26 @@ function createContextHandlers(req, userMessageContent) {
       }
 
       const oneFile = processedFiles.length === 1;
-      const header = `Please complete the following instructions based on the following ${oneFile ? 'a' : processedFiles.length} file${
+      const header = `Please read and complete the user instructions based on the following ${oneFile ? 'a' : processedFiles.length} file${
         !oneFile ? 's' : ''
-      } to the conversation:`;
+      }:`;
 
       const files = `${
         oneFile
           ? ''
-          : `
-      <files>`
+          : ``
       }${processedFiles
         .map(
-          (file) => `
+          (file) => `---
             File Name: ${file.filename}
             File Type: ${file.type}
+            ---
             `,
         )
         .join('')}${
         oneFile
           ? ''
-          : `
-            `
+          : ``
       }`;
 
       const resolvedQueries = await Promise.all(queryPromises);
@@ -100,8 +99,7 @@ function createContextHandlers(req, userMessageContent) {
               let contextItems = queryResult.data;
 
               const generateContext = (currentContext) =>
-                `
-              ---
+                `---
               File Name: ${file.filename}
               File Context: ${currentContext}
                 `;
