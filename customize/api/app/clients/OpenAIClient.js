@@ -592,7 +592,7 @@ class OpenAIClient extends BaseClient {
         if (lastUserMessageIndex !== -1) {
           payload[
             lastUserMessageIndex
-          ].content = `User Instructions:${payload[lastUserMessageIndex].content}\n\n${promptPrefix}`;
+          ].content = `${promptPrefix}\n\nBased on the external information provided, please follow the instructions below. If the instruction is "summary," summarize the key financial analysis points from each document: \n${payload[lastUserMessageIndex].content}`;
         }
       }
 
