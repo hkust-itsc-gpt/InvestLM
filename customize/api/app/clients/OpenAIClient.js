@@ -592,7 +592,7 @@ class OpenAIClient extends BaseClient {
         if (lastUserMessageIndex !== -1) {
           payload[
             lastUserMessageIndex
-          ].content = `${promptPrefix}\n\nUser Instructions:${payload[lastUserMessageIndex].content}`;
+          ].content = `User Instructions:${payload[lastUserMessageIndex].content}\n\n${promptPrefix}`;
         }
       }
 
