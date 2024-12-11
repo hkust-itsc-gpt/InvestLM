@@ -8,6 +8,7 @@ In your response, remember to follow these guidelines:
 - If you don't know the answer, simply state that the context does not provide the relevant information, and then ask for the necessary details.
 - If you are unsure how to answer, ask for clarification.
 - Avoid mentioning that you obtained the information from the context.
+- Only focus on the latest context.
 `;
 
 function createContextHandlers(req, userMessageContent) {
@@ -46,9 +47,31 @@ function createContextHandlers(req, userMessageContent) {
     );
   };
 
+  // const processFile = async (file) => {
+  //   if (file.embedded && !processedIds.has(file.file_id)) {
+  //     try {
+  //       const promise = query(file);
+  //       queryPromises.push(promise);
+  //       processedFiles.push(file);
+  //       processedIds.add(file.file_id);
+  //     } catch (error) {
+  //       logger.error(`Error processing file ${file.filename}:`, error);
+  //     }
+  //   }
+  // };
+
   const processFile = async (file) => {
     if (file.embedded && !processedIds.has(file.file_id)) {
       try {
+        if (processedIds.size > 0) {
+          console.error(Array.from(processedIds))
+          logger.info(`Received multiple files, retaining only the latest one.`);
+          processedIds.clear();
+          queryPromises.length = 0;
+        }
+
+        logger.info(`Processing file: ${file.filename}`);
+        console.log(file)
         const promise = query(file);
         queryPromises.push(promise);
         processedFiles.push(file);
@@ -58,7 +81,6 @@ function createContextHandlers(req, userMessageContent) {
       }
     }
   };
-
   const createContext = async () => {
     try {
       if (!queryPromises.length || !processedFiles.length) {

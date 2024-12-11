@@ -33,7 +33,7 @@ interface:
 
   multiConvo: false
   parameters: true
-  sidePanel: true
+  sidePanel: false
   bookmarks: false
     
 # Example Registration Object Structure (optional)
