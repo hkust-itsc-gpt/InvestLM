@@ -549,18 +549,18 @@ class OpenAIClient extends BaseClient {
       promptPrefix = this.augmentedPrompt + promptPrefix;
     }
 
-    if (promptPrefix && this.isO1Model !== true) {
-      promptPrefix = `${promptPrefix.trim()}`;
-      instructions = {
-        role: 'user',
-        name: 'instructions',
-        content: promptPrefix,
-      };
+    // if (promptPrefix && this.isO1Model !== true) {
+    //   promptPrefix = `${promptPrefix.trim()}`;
+    //   instructions = {
+    //     role: 'user',
+    //     name: 'instructions',
+    //     content: promptPrefix,
+    //   };
 
-      if (this.contextStrategy) {
-        instructions.tokenCount = this.getTokenCountForMessage(instructions);
-      }
-    }
+    //   if (this.contextStrategy) {
+    //     instructions.tokenCount = this.getTokenCountForMessage(instructions);
+    //   }
+    // }
 
     // TODO: need to handle interleaving instructions better
     if (this.contextStrategy) {
@@ -592,7 +592,7 @@ class OpenAIClient extends BaseClient {
         if (lastUserMessageIndex !== -1) {
           payload[
             lastUserMessageIndex
-          ].content = `${promptPrefix}\n\nBased on the external information provided, please follow the instructions below. If the instruction is "summary," summarize the key financial analysis points from each document: \n${payload[lastUserMessageIndex].content}`;
+          ].content = `${promptPrefix}\n\nBased on the external information provided, please follow the instructions below: \n${payload[lastUserMessageIndex].content}`;
         }
       }
 
