@@ -2,13 +2,13 @@ const axios = require('axios');
 const { isEnabled } = require('~/server/utils');
 const { logger } = require('~/config');
 
-const footer = `Use the context as your learned knowledge to better answer the user.
+const footer = `Based on this context, answer the user's question.
 
 In your response, remember to follow these guidelines:
 - If you don't know the answer, simply state that the context does not provide the relevant information, and then ask for the necessary details.
 - If you are unsure how to answer, ask for clarification.
 - Avoid mentioning that you obtained the information from the context.
-- Only focus on the latest context.
+- Please answer instructions only based on the new context.
 `;
 
 function createContextHandlers(req, userMessageContent) {
@@ -154,7 +154,7 @@ function createContextHandlers(req, userMessageContent) {
       const prompt = `${header}
         ${files}
 
-        A semantic search was executed with the user's message as the query, retrieving the following context inside <context></context> XML tags.
+        A semantic search was executed with the user's message as the query, retrieving the following context:
 
         <context>${context}
         </context>
