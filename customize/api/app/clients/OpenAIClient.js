@@ -588,13 +588,13 @@ class OpenAIClient extends BaseClient {
     // }
 
     if (promptPrefix) {
-        const lastUserMessageIndex = payload.findLastIndex((message) => message.role === 'user');
-        if (lastUserMessageIndex !== -1) {
-          payload[
-            lastUserMessageIndex
-          ].content = `${promptPrefix}\n\nUser's Question: \n${payload[lastUserMessageIndex].content}`;
-        }
+      const lastUserMessageIndex = payload.findLastIndex((message) => message.role === 'user');
+      if (lastUserMessageIndex !== -1) {
+        payload[
+          lastUserMessageIndex
+        ].content = `Based on the external information provided, please answer this question: \n${payload[lastUserMessageIndex].content}\n\n${promptPrefix}`;
       }
+    }
 
     if (tokenCountMap) {
       tokenCountMap.instructions = instructions?.tokenCount;
