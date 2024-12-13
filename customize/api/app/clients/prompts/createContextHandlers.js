@@ -7,7 +7,7 @@ const footer = `Based on this context, answer the user's question.
 In your response, remember to follow these guidelines:
 - If you don't know the answer, simply state that the context does not provide the relevant information, and then ask for the necessary details.
 - If you are unsure how to answer, ask for clarification.
-- Please answer instructions only based on the new context.
+- Please disregard previous documents and replies, and respond to instructions based solely on the new context provided.
 `;
 
 function createContextHandlers(req, userMessageContent) {
