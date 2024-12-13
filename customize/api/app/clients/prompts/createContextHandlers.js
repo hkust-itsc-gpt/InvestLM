@@ -89,7 +89,7 @@ function createContextHandlers(req, userMessageContent) {
       }
 
       const oneFile = processedFiles.length === 1;
-      const header = `Please read and complete the user instructions based on the following ${oneFile ? 'a' : processedFiles.length} file${
+      const header = `Here is the text extracted from ${oneFile ? 'a' : processedFiles.length} file${
         !oneFile ? 's' : ''
       }:`;
 
@@ -155,10 +155,9 @@ function createContextHandlers(req, userMessageContent) {
       const prompt = `${header}
         ${files}
 
-        A semantic search was executed with the user's message as the query, retrieving the following context:
-
-        <context>${context}
-        </context>
+        \`\`\`
+        ${context}
+        \`\`\`
 
         ${footer}`;
 
