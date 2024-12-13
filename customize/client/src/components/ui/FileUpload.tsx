@@ -1,4 +1,4 @@
-import React, { useState, forwardRef } from 'react';
+import React, { forwardRef } from 'react';
 
 type FileUploadProps = {
   className?: string;
@@ -9,22 +9,15 @@ type FileUploadProps = {
 
 const FileUpload = forwardRef<HTMLInputElement, FileUploadProps>(
   ({ children, handleFileChange }, ref) => {
-    const [isFileSelected, setIsFileSelected] = useState<boolean>(false);
-
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-      handleFileChange(event);
-      setIsFileSelected(true); 
-    };
-
     return (
       <>
-        {!isFileSelected && children}
+        {children}
         <input
           ref={ref}
           multiple={false}
           type="file"
           style={{ display: 'none' }}
-          onChange={handleChange}
+          onChange={handleFileChange}
         />
       </>
     );
