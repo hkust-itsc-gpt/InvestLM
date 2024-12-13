@@ -64,7 +64,9 @@ function createContextHandlers(req, userMessageContent) {
       try {
         if (processedIds.size > 0) {
           console.error(Array.from(processedIds))
+          // await deleteDocuments(Array.from(processedIds));
           logger.info(`Received multiple files, retaining only the latest one.`);
+          processedFiles.length = 0;
           processedIds.clear();
           queryPromises.length = 0;
         }
