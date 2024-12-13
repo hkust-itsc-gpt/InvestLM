@@ -592,10 +592,9 @@ class OpenAIClient extends BaseClient {
       if (lastUserMessageIndex !== -1) {
         payload[
           lastUserMessageIndex
-        ].content = `Based on the external information provided, please answer this question: \n${payload[lastUserMessageIndex].content}\n\n${promptPrefix}`;
+        ].content = `${promptPrefix}\n\nUser Question: \n${payload[lastUserMessageIndex].content}`;
       }
     }
-
     if (tokenCountMap) {
       tokenCountMap.instructions = instructions?.tokenCount;
       result.tokenCountMap = tokenCountMap;
