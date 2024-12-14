@@ -59,7 +59,7 @@ const baseDefinitions: Record<string, SettingDefinition> = {
     minTags: 0,
     maxTags: 4,
   },
-/*  imageDetail: {
+  imageDetail: {
     key: 'imageDetail',
     label: 'com_endpoint_plug_image_detail',
     labelCode: true,
@@ -71,7 +71,7 @@ const baseDefinitions: Record<string, SettingDefinition> = {
     options: [ImageDetail.low, ImageDetail.auto, ImageDetail.high],
     optionType: 'conversation',
     columnSpan: 2,
-  }, */
+  },
 };
 
 const createDefinition = (
@@ -106,7 +106,7 @@ const librechat: Record<string, SettingDefinition> = {
     optionType: 'model',
     columnSpan: 2,
   },
-/*  resendFiles: {
+  resendFiles: {
     key: 'resendFiles',
     label: 'com_endpoint_plug_resend_files',
     labelCode: true,
@@ -118,7 +118,7 @@ const librechat: Record<string, SettingDefinition> = {
     optionType: 'conversation',
     showDefault: false,
     columnSpan: 2,
-  }, */
+  },
   promptPrefix: {
     key: 'promptPrefix',
     label: 'com_endpoint_prompt_prefix',
@@ -362,8 +362,8 @@ const openAI: SettingsConfiguration = [
   openAIParams.frequency_penalty,
   openAIParams.presence_penalty,
   baseDefinitions.stop,
-/*  librechat.resendFiles,
-  baseDefinitions.imageDetail, */
+  librechat.resendFiles,
+  baseDefinitions.imageDetail,
 ];
 
 const openAICol1: SettingsConfiguration = [
@@ -380,8 +380,8 @@ const openAICol2: SettingsConfiguration = [
   openAIParams.frequency_penalty,
   openAIParams.presence_penalty,
   baseDefinitions.stop,
-/*  librechat.resendFiles,
-  baseDefinitions.imageDetail, */
+  librechat.resendFiles,
+  baseDefinitions.imageDetail,
 ];
 
 const anthropicConfig: SettingsConfiguration = [
@@ -392,7 +392,7 @@ const anthropicConfig: SettingsConfiguration = [
   anthropic.temperature,
   anthropic.topP,
   anthropic.topK,
-/*  librechat.resendFiles, */
+  librechat.resendFiles,
   anthropic.promptCache,
 ];
 
@@ -408,7 +408,7 @@ const anthropicCol2: SettingsConfiguration = [
   anthropic.temperature,
   anthropic.topP,
   anthropic.topK,
-/*  librechat.resendFiles, */
+  librechat.resendFiles,
   anthropic.promptCache,
 ];
 
@@ -422,7 +422,7 @@ const bedrockAnthropic: SettingsConfiguration = [
   bedrock.topK,
   baseDefinitions.stop,
   bedrock.region,
-/*  librechat.resendFiles, */
+  librechat.resendFiles,
 ];
 
 const bedrockMistral: SettingsConfiguration = [
@@ -433,7 +433,7 @@ const bedrockMistral: SettingsConfiguration = [
   mistral.temperature,
   mistral.topP,
   bedrock.region,
-/*  librechat.resendFiles, */
+  librechat.resendFiles,
 ];
 
 const bedrockCohere: SettingsConfiguration = [
@@ -444,7 +444,7 @@ const bedrockCohere: SettingsConfiguration = [
   cohere.temperature,
   cohere.topP,
   bedrock.region,
-/*  librechat.resendFiles, */
+  librechat.resendFiles,
 ];
 
 const bedrockGeneral: SettingsConfiguration = [
@@ -454,7 +454,7 @@ const bedrockGeneral: SettingsConfiguration = [
   meta.temperature,
   meta.topP,
   bedrock.region,
-/*  librechat.resendFiles, */
+  librechat.resendFiles,
 ];
 
 const bedrockAnthropicCol1: SettingsConfiguration = [
@@ -471,7 +471,7 @@ const bedrockAnthropicCol2: SettingsConfiguration = [
   bedrock.topP,
   bedrock.topK,
   bedrock.region,
-/*  librechat.resendFiles, */
+  librechat.resendFiles,
 ];
 
 const bedrockMistralCol1: SettingsConfiguration = [
@@ -486,7 +486,7 @@ const bedrockMistralCol2: SettingsConfiguration = [
   mistral.temperature,
   mistral.topP,
   bedrock.region,
-/*  librechat.resendFiles, */
+  librechat.resendFiles,
 ];
 
 const bedrockCohereCol1: SettingsConfiguration = [
@@ -501,7 +501,7 @@ const bedrockCohereCol2: SettingsConfiguration = [
   cohere.temperature,
   cohere.topP,
   bedrock.region,
-/*  librechat.resendFiles, */
+  librechat.resendFiles,
 ];
 
 const bedrockGeneralCol1: SettingsConfiguration = [
@@ -515,7 +515,7 @@ const bedrockGeneralCol2: SettingsConfiguration = [
   meta.temperature,
   meta.topP,
   bedrock.region,
-/*  librechat.resendFiles, */
+  librechat.resendFiles,
 ];
 
 export const settings: Record<string, SettingsConfiguration | undefined> = {

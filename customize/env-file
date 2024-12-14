@@ -33,7 +33,7 @@ CONSOLE_JSON=false
 #===============#
 
 DEBUG_LOGGING=true
-DEBUG_CONSOLE=false
+DEBUG_CONSOLE=true
 
 #=============#
 # Permissions #
@@ -300,6 +300,10 @@ TTS_API_KEY=
 #                        RAG                       #
 #==================================================#
 # More info: https://www.librechat.ai/docs/configuration/rag_api
+# InvetsLM Dev Only
+RAG_API_URL=http://imz339.ust.hk:8000
+RAG_OPENAI_BASEURL=https://closellm.deno.dev/v1
+DEBUG_RAG_API=True
 
 # RAG_OPENAI_BASEURL=
 # RAG_OPENAI_API_KEY=

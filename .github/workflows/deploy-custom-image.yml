@@ -27,6 +27,8 @@ permissions:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    environment: ${{ github.ref_name }}
+
     steps:
       # checkout the repo
       - name: 'Checkout GitHub Action'
